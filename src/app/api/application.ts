@@ -1,5 +1,4 @@
 import { API_ROOT, ACCOUNTCLASS } from "@/app/utillities/const"
-import "cross-fetch/polyfill";
 
 const getAllApplicationList = async () => {
   const res = await fetch(`${API_ROOT}/application`);

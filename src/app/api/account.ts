@@ -1,4 +1,3 @@
-import "cross-fetch/polyfill";
 import { API_ROOT } from "@/app/utillities/const"
 import { Account } from "@/app/types/account";
 

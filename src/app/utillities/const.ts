@@ -1,5 +1,5 @@
 // APIのルートパス
-const API_ROOT = process.env.API_BASE;
+const API_ROOT = process.env.NEXT_PUBLIC_API_BASE;
 
 // アカウント区分
 const ACCOUNTCLASS = {
@@ -17,8 +17,8 @@ const ADDACCOUNTPARAM: { Id: number; Other: string } = {
 };
 
 // アプリの操作を許可するユーザー(ユーザー名)
-const ADMINUSER: string = process.env.ADMIN_USER_NAME!;
-const GENERALUSER: string = process.env.GENERAL_USER_NAME!;
+const ADMINUSER: string = process.env.NEXT_PUBLIC_ADMIN_USER_NAME!;
+const GENERALUSER: string = process.env.NEXT_PUBLIC_GENERAL_USER_NAME!;
 
 export {
   API_ROOT,
