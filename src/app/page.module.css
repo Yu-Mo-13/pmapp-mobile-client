@@ -145,7 +145,8 @@
 /* Mobile */
 @media (max-width: 700px) {
   .main {
-    padding: 12rem 0.3rem;
+    margin-top: 0rem;
+    padding: 5rem 0.3rem;
   }
   
   .content {

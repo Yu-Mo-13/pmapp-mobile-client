@@ -1,65 +1,29 @@
 "use client";
 import React from "react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import * as yup from "yup";
+import { signIn } from "next-auth/react";
 import styles from "./page.module.css";
 import { AppTitle } from './components/apptitle';
-import { Textbox } from "./components/textbox/textbox";
 import { LargeButton } from "./components/button/large";
-
-const loginSchema = yup.object().shape({
-  userId: yup.string().required("ログイン情報を入力してください。"),
-  keyword: yup.string().required("ログイン情報を入力してください。"),
-});
+import * as CSS from 'csstype';
 
 export default function Home() {
-  const [userId, setUserId] = useState<string>("");
-  const [keyword, setKeyword] = useState<string>("");
-  const router = useRouter();
+  const loginStyle: CSS.Properties = {
+    marginTop: "9rem",
+  }
 
-  const onClickLogin = async () => {
+  const onClickLogin = () => {
     try {
-      await loginSchema.validate({ userId, keyword });
-      router.push("/menu");
+      signIn("google", { callbackUrl: "/menu" }, { prompt: "login"});
     } catch (error) {
-      if (error instanceof yup.ValidationError) {
-        // バリデーションエラー
-        alert(error.message);
-        return;
-      }
-      if (error instanceof TypeError) {
-        // ログインエラー
-        alert("ユーザーIDまたはパスワードが間違っています。");
-      }
+      alert("ログインに失敗しました。");
       return;
     }
   }
 
   return (
     <main className={styles.main}>
-      <div className={styles.content}>
+      <div className={styles.content} style={loginStyle}>
         <AppTitle caption="PMAPP Mobile"/>
-        {/* ユーザーIDを入力するテキストボックス */}
-        <Textbox
-          type="text"
-          id="USERID"
-          placeholder="ユーザーID"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setUserId(e.target.value)
-          }
-          val={userId}
-        />
-        {/* ユーザーIDを入力するテキストボックス */}
-        <Textbox
-          type="password"
-          id="PASSWORD"
-          placeholder="パスワード"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setKeyword(e.target.value)
-          }
-          val={keyword}
-        />
         {/* ログインボタン */}
         <LargeButton caption="ログイン" onClick={onClickLogin} isEnabled={true} />
       </div>

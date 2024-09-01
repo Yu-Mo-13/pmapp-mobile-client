@@ -1,18 +1,31 @@
 // APIのルートパス
-// export const API_ROOT = process.env.VITE_API_BASE_URL;
-export const API_ROOT = process.env.API_BASE;
+const API_ROOT = process.env.API_BASE;
 
 // アカウント区分
-export const ACCOUNTCLASS = {
+const ACCOUNTCLASS = {
   NoNeedAccount: "0",
   NeedAccount: "1",
 };
 
-export const FUNCLIST: string[] = ["ユーザーマスター", "アカウントマスター","自動登録済リスト"];
+const FUNCLIST: string[] = ["アカウントマスター", "パスワード検索", "自動登録済リスト"];
 
 // 新規登録画面遷移時に渡すパラメータ
-export const ADDUSERPARAM: number = 0;
-export const ADDACCOUNTPARAM: { Id: number; Other: string } = {
+const ADDUSERPARAM: number = 0;
+const ADDACCOUNTPARAM: { Id: number; Other: string } = {
   Id: 0,
   Other: "",
+};
+
+// アプリの操作を許可するユーザー(ユーザー名)
+const ADMINUSER: string = process.env.ADMIN_USER_NAME!;
+const GENERALUSER: string = process.env.GENERAL_USER_NAME!;
+
+export {
+  API_ROOT,
+  ACCOUNTCLASS,
+  FUNCLIST,
+  ADDUSERPARAM,
+  ADDACCOUNTPARAM,
+  ADMINUSER,
+  GENERALUSER,
 };
