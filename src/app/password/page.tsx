@@ -150,26 +150,26 @@ export default function Password() {
           />
         </div>
         <div className="accountList" style={accountListStyle}>
-        {/* passwordDetailInfo.accountList.mapを使って、Plateのリストを作る */}
-        {accountClass === ACCOUNTCLASS.NeedAccount ? (
-          passwordInfo.map((rec, i) => (
+          {/* passwordDetailInfo.accountList.mapを使って、Plateのリストを作る */}
+          {accountClass === ACCOUNTCLASS.NeedAccount ? (
+            passwordInfo.map((rec, i) => (
+              <Plate
+                key={i}
+                caption={convertCaption(rec.account)}
+                isEnabled={true}
+                onClick={() => onClickGetPasswordButton(rec.password)}
+              />
+            ))
+          ) : (
             <Plate
-              key={i}
-              caption={convertCaption(rec.account)}
-              isEnabled={true}
-              onClick={() => onClickGetPasswordButton(rec.password)}
+              key={0}
+              caption={"取得"}
+              isEnabled={canSelectPlate}
+              onClick={() =>
+                onClickGetPasswordButton(passwordInfo[0].password)
+              }
             />
-          ))
-        ) : (
-          <Plate
-            key={0}
-            caption={"取得"}
-            isEnabled={canSelectPlate}
-            onClick={() =>
-              onClickGetPasswordButton(passwordInfo[0].password)
-            }
-          />
-        )}
+          )}
         </div>
       </div>
     </main>
