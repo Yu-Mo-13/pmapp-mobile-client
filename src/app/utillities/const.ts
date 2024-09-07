@@ -10,6 +10,7 @@ const ACCOUNTCLASS = {
 const FUNCLIST: string[] = ["アカウントマスター", "パスワード検索", "自動登録済リスト"];
 
 // 新規登録画面遷移時に渡すパラメータ
+const NEWID: number = 0;
 const ADDACCOUNTPARAM: { Id: string; Other: string } = {
   Id: "id%3D0",
   Other: "",
@@ -23,6 +24,7 @@ export {
   API_ROOT,
   ACCOUNTCLASS,
   FUNCLIST,
+  NEWID,
   ADDACCOUNTPARAM,
   ADMINUSER,
   GENERALUSER,

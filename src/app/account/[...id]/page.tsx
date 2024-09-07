@@ -11,7 +11,7 @@ import { AppTitle } from "@/app/components/apptitle";
 import { Caption } from "@/app/components/caption";
 import { LargeButton } from "@/app/components/button/large";
 import { LoginUser } from "@/app/components/loginuser";
-import { ADDACCOUNTPARAM } from "@/app/utillities/const";
+import { ADDACCOUNTPARAM, NEWID } from "@/app/utillities/const";
 import { getRegistButtonState } from "@/app/utillities/function";
 import { Textbox } from "@/app/components/textbox/textbox";
 import { accountStore, resetAccountStore } from "@/app/proxy/account";
@@ -32,7 +32,7 @@ export default function AccountDetail({ params }: { params: { id: string }}) {
     account: yup.string().required("アカウント名を入力してください。"),
   });
   const [accountInfo, setAccountInfo] = useState<Account>({
-    id: 0,
+    id: NEWID,
     account: "",
     app: "",
     deleteflg: "",

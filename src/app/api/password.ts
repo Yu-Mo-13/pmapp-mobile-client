@@ -1,5 +1,4 @@
 import { API_ROOT } from "@/app/utillities/const"
-import "cross-fetch/polyfill";
 
 const getPassword = async (
   app: string,
