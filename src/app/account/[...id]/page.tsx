@@ -56,8 +56,8 @@ export default function AccountDetail({ params }: { params: { id: string }}) {
   // 登録・削除ボタン押下時の処理
   const onClickRegistButton = async () => {
     try {
-      if (params.id === ADDACCOUNTPARAM.Id) {
-        await schema.validate({ app: accountInfo.app, account: accountInfo.account });
+      if (params.id[0] === ADDACCOUNTPARAM.Id) {
+        await schema.validate(accountInfo);
       }
       if (!window.confirm(`アカウント情報を${registButtonState.caption}します。よろしいですか？`)) {
         return;
