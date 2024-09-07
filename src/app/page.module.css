@@ -23,6 +23,10 @@
   border-radius: var(--border-radius);
 }
 
+.detail p {
+  margin-right: 7.5rem;
+}
+
 .description {
   display: inherit;
   justify-content: inherit;

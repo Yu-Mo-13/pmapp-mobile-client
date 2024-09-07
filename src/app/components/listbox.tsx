@@ -10,21 +10,11 @@ export const Listbox = (props: ListboxProps) => {
     height: "50px",
     fontSize: "20px",
     marginBottom: "10px",
+    marginLeft: "13px",
     paddingRight: "10px",
     borderRadius: "5px",
     border: "1px solid #ccc",
     maxWidth: "95%",
-    // はみ出す場合は、・・・で省略する
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    whiteSpace: "nowrap",
-  };
-
-  const labelStyle: CSS.Properties = {
-    fontSize: "20px",
-    marginBottom: "10px",
-    paddingLeft: "20px",
-    paddingRight: "15px",
     // はみ出す場合は、・・・で省略する
     overflow: "hidden",
     textOverflow: "ellipsis",

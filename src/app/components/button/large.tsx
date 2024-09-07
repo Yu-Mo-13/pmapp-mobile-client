@@ -10,8 +10,10 @@ export const LargeButton = (props: ButtonProps) => {
     fontSize: "1rem",
     fontWeight: "bold",
     color: "white",
-    marginBottom: "10px",
-    marginTop: "15px",
+    marginTop: "10px",
+    marginBottom: "20px",
+    marginLeft: "30px",
+    marginRight: "30px",
     textAlign: "center",
     backgroundColor: isEnabled ? "#3cb371" : "#808080",
   };

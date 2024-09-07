@@ -5,10 +5,10 @@ export const Textbox = (props: TextboxProps) => {
   const { type, id, placeholder, val, onChange } = props;
 
   const textboxStyle: CSS.Properties = {
-    width: "85%",
+    width: "99%",
     height: "50px",
     fontSize: "20px",
-    marginBottom: "4px",
+    marginBottom: "20px",
     paddingLeft: "10px",
     paddingRight: "10px",
     borderRadius: "5px",

@@ -17,7 +17,7 @@ import { ADDACCOUNTPARAM, ADMINUSER } from "@/app/utillities/const";
 import { convertCaption } from "@/app/utillities/function";
 import styles from '@/app/page.module.css';
 
-const AccountMasterList: React.FC = () => {
+export default function AccountList() {
   const router = useRouter();
   const { data: session } = useSession();
   const [accountList, setAccountList] = useState<Account[]>([]);
@@ -85,7 +85,7 @@ const AccountMasterList: React.FC = () => {
             isEnabled={canSelect && session?.user?.name! === ADMINUSER}
             onClick={() =>
               moveToDetail(
-                ADDACCOUNTPARAM.Id,
+                0,
                 ADDACCOUNTPARAM.Other,
                 ADDACCOUNTPARAM.Other,
                 applicationList
@@ -93,7 +93,7 @@ const AccountMasterList: React.FC = () => {
             }
           />
         </div>
-        <div className="search">
+        <div className={styles.detail}>
           <Caption caption="アプリ名" />
           <input type="hidden" value={selectedApp} />
           <Listbox
@@ -124,6 +124,4 @@ const AccountMasterList: React.FC = () => {
       </div>
     </main>
   );
-};
-
-export default AccountMasterList;
+}
