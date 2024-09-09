@@ -15,7 +15,7 @@ const getApplicationList = async () => {
   const data = await res.json();
   const applicationList: string[] = new Array(data.length);
   for (let i = 0; i < data.length; i++) {
-    if (data[i].accountclas === "1") {
+    if (data[i].accountclas === ACCOUNTCLASS.NeedAccount) {
       applicationList[i] = data[i].name;
     }
   }
