@@ -1,3 +1,4 @@
+export type UUID = string;
 export type Password = {
   no: number;
   pwd: string;
@@ -7,7 +8,7 @@ export type Password = {
 };
 
 export type Autoregist = {
-  uuid: string;
+  uuid: UUID;
   pwd: string;
   app: string;
   other_info: string;

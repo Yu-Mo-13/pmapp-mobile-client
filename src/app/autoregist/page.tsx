@@ -4,22 +4,30 @@ import styles from '@/app/page.module.css';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import * as CSS from "csstype";
-import { getAllApplicationList } from '@/app/api/application';
+import { getAllAutoregistList } from '@/app/api/autoregist';
 import { AppTitle } from '@/app/components/apptitle';
 import { LargeButton } from '@/app/components/button/large';
 import { LoginUser } from '@/app/components/loginuser';
 import { Plate } from '@/app/components/plate';
-import { AccountandUUID } from '@/app/types/account';
-import { ADMINUSER, ACCOUNTCLASS } from '@/app/utillities/const';
 import { convertCaption } from '@/app/utillities/function';
+import { Autoregist } from '@/app/types/password';
 
 export default function AutoRegistList() {
   const router = useRouter();
   const { data: session } = useSession();
-  const [autoregistInfo, setAutoregistInfo] = useState<AccountandUUID[]>([]);
-  const [accountClass, setAccountClass] = useState<string>("");
-  const [appList, setAppList] = useState<string[]>([]);
-  const [canSelect, setCanSelect] = useState<boolean>(false);
+  const [autoregistInfo, setAutoregistInfo] = useState<Autoregist[]>([]);
+
+  useState(()=> {
+    const fetchAutoregistList = async () => {
+      const list = await getAllAutoregistList();
+      setAutoregistInfo(list);
+    };
+    try {
+      fetchAutoregistList();
+    } catch (error: unknown) {
+      alert(`自動登録リストの取得に失敗しました: ${error}`);
+    }
+  });
 
   const headerStyle: CSS.Properties = {
     display: "flex",
@@ -35,21 +43,9 @@ export default function AutoRegistList() {
     height: "100%",
   };
 
-  const onClickReadButton = async () => {
-    setCanSelect(true);
-  };
-
   const moveToDetail = (uuid: string) => {
-    router.push(`/account/id=${uuid}`);
+    router.push(`/autoregist/id=${uuid}`);
   };
-
-  useState(async () => {
-    try {
-      setAppList(await getAllApplicationList());
-    } catch (error: unknown) {
-      alert(`アプリケーション情報の取得に失敗しました: ${error}`);
-    }
-  });
 
   return (
     <main className={styles.main}>
@@ -62,33 +58,19 @@ export default function AutoRegistList() {
             isEnabled={true}
             onClick={() => router.push("/menu")}
           />
-          <LargeButton
-              caption="読込"
-              onClick={() => onClickReadButton()}
-              isEnabled={true}
-          />
         </div>
+        {autoregistInfo.length === 0 ? (
+            <AppTitle caption="自動登録されたパスワードはありません。" />
+        ) : null}
         <div className="accountList" style={accountListStyle}>
-          {/* autoregistInfo.accountList.mapを使って、Plateのリストを作る */}
-          {accountClass === ACCOUNTCLASS.NeedAccount ? (
-            autoregistInfo.map((rec, i) => (
-              <Plate
-                key={i}
-                caption={convertCaption(rec.account)}
-                isEnabled={true}
-                onClick={() => moveToDetail(rec.uuid)}
-              />
-            ))
-          ) : (
+          {autoregistInfo.map((rec, i) => (
             <Plate
-              key={0}
-              caption={"詳細"}
-              isEnabled={canSelect}
-              onClick={() =>
-                moveToDetail(autoregistInfo[0].uuid)
-              }
+              key={i}
+              caption={rec.other_info === "" ? rec.app : convertCaption(`${rec.app}/${rec.other_info}`)}
+              isEnabled={true}
+              onClick={() => moveToDetail(rec.uuid)}
             />
-          )}
+          ))}
         </div>
       </div>
     </main>

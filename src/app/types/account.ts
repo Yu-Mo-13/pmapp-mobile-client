@@ -12,7 +12,3 @@ export type Account = {
 export type AccountandPassword = Account & {
   password: string;
 };
-
-export type AccountandUUID = Account & {
-  uuid: string;
-};
