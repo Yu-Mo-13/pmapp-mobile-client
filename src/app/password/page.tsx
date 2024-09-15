@@ -150,7 +150,7 @@ export default function Password() {
           />
         </div>
         <div className="accountList" style={accountListStyle}>
-          {/* passwordDetailInfo.accountList.mapを使って、Plateのリストを作る */}
+          {/* passwordInfo.accountList.mapを使って、Plateのリストを作る */}
           {accountClass === ACCOUNTCLASS.NeedAccount ? (
             passwordInfo.map((rec, i) => (
               <Plate

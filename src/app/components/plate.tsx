@@ -11,7 +11,7 @@ export const Plate = (props: ButtonProps, exProps: { key: string }) => {
     fontSize: "1.2rem",
     fontWeight: "bold",
     color: "white",
-    marginBottom: "10px",
+    marginBottom: "7px",
     marginTop: "15px",
     textAlign: "center",
     backgroundColor: isEnabled ? "#3cb371" : "#808080",
