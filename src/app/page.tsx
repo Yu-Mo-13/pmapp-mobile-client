@@ -25,7 +25,7 @@ export default function Home() {
       <div className={styles.content} style={loginStyle}>
         <AppTitle caption="PMAPP Mobile"/>
         {/* ログインボタン */}
-        <LargeButton caption="ログイン" onClick={onClickLogin} isEnabled={true} />
+        <LargeButton caption="G ログイン" onClick={onClickLogin} isEnabled={true} />
       </div>
     </main>
   );

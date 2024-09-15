@@ -10,8 +10,10 @@ export const SmallButton = (props: ButtonProps) => {
     fontSize: "0.8rem",
     fontWeight: "bold",
     color: "white",
-    marginBottom: "10px",
-    marginTop: "15px",
+    marginTop: "10px",
+    marginBottom: "20px",
+    marginLeft: "15px",
+    marginRight: "15px",
     textAlign: "center",
     // disabledの場合は、濃いグレーにする
     backgroundColor: isEnabled ? "#3cb371" : "#808080",

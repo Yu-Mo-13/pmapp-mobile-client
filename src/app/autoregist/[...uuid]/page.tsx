@@ -1,9 +1,10 @@
+"use client";
 import styles from '@/app/page.module.css';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import * as CSS from "csstype";
 import { AppTitle } from '@/app/components/apptitle';
-import { LargeButton } from '@/app/components/button/large';
+import { SmallButton } from '@/app/components/button/small';
 import { LoginUser } from '@/app/components/loginuser';
 import { UUID } from '@/app/types/password';
 
@@ -23,10 +24,20 @@ export default function AutoRegistDetail({ params }: { params: { uuid: UUID }}) 
         <LoginUser caption={session?.user?.name!} />
         <AppTitle caption="パスワード自動登録リスト" />
         <div className="header" style={headerStyle}>
-          <LargeButton
+          <SmallButton
             caption="戻る"
             isEnabled={true}
-            onClick={() => router.push("/menu")}
+            onClick={() => router.push("/autoregist")}
+          />
+          <SmallButton
+            caption="コピー"
+            isEnabled={true}
+            onClick={() => alert("コピーしました")}
+          />
+          <SmallButton
+            caption="本登録"
+            isEnabled={true}
+            onClick={() => alert("本登録しました")}
           />
         </div>
       </div>
