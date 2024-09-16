@@ -11,8 +11,7 @@ import { Caption } from '@/app/components/caption';
 import { SmallButton } from '@/app/components/button/small';
 import { LoginUser } from '@/app/components/loginuser';
 import { ReadonlyTextbox } from "@/app/components/textbox/readonly";
-import { Autoregist } from '@/app/types/password';
-import { UUID } from '@/app/types/password';
+import { Autoregist, UUID } from '@/app/types/password';
 import { NEWID } from '@/app/utillities/const';
 import { getRegistButtonState } from '@/app/utillities/function';
 
