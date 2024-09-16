@@ -19,10 +19,24 @@ const getAllAutoregistList = async () => {
 };
 
 const getAutoregistInfo = async (uuid: string) => {
-  const res = await fetch(`${API_ROOT}/autoregist/id=${uuid}`);
+  const res = await fetch(`${API_ROOT}/autoregist/${uuid}`);
   const data = await res.json();
-  const autoregistInfo: Autoregist = data[0];
+  const autoregistInfo: Autoregist = {
+    uuid: data.uuid,
+    pwd: data.pwd,
+    app: data.app,
+    other_info: data.other_info,
+    registered_date: data.registered_date,
+  };
   return autoregistInfo;
+};
+
+const deleteAutoregistInfo = async (uuid: string) => {
+  const res = await fetch(`${API_ROOT}/autoregist/delete/${uuid}`, {
+    method: "POST",
+  });
+  const data = await res.json();
+  return data;
 }
 
-export { getAllAutoregistList, getAutoregistInfo };
+export { getAllAutoregistList, getAutoregistInfo, deleteAutoregistInfo };

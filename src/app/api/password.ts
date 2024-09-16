@@ -10,4 +10,16 @@ const getPassword = async (
   const data = await res.json();
   return data.pwd;
 };
-export { getPassword };
+
+const registPassword = async (
+  pwd: string,
+  app: string,
+  other_info: string,
+) => {
+  const res = await fetch(`${API_ROOT}/password/create?pwd=${pwd}&app=${app}&other_info=${other_info}`, {
+    method: "POST",
+  });
+  const data = await res.json();
+  return data;
+}
+export { getPassword, registPassword };

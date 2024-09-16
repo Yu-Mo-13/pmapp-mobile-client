@@ -44,7 +44,7 @@ export default function AutoRegistList() {
   };
 
   const moveToDetail = (uuid: string) => {
-    router.push(`/autoregist/id=${uuid}`);
+    router.push(`/autoregist/uuid=${uuid}`);
   };
 
   return (
