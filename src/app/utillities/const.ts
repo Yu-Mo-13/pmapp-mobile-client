@@ -20,6 +20,17 @@ const ADDACCOUNTPARAM: { Id: string; Other: string } = {
 const ADMINUSER: string = process.env.NEXT_PUBLIC_ADMIN_USER_NAME!;
 const GENERALUSER: string = process.env.NEXT_PUBLIC_GENERAL_USER_NAME!;
 
+// ワンタイムパスワード作成時に使う定数
+const OTPPARAM: {
+  markclas: string;
+  otpctlcdPhonenumber: string;
+  otpctlcdOtplength: string;
+} = {
+  markclas: "0",
+  otpctlcdPhonenumber: "01",
+  otpctlcdOtplength: "02",
+}
+
 export {
   API_ROOT,
   ACCOUNTCLASS,
@@ -28,4 +39,5 @@ export {
   ADDACCOUNTPARAM,
   ADMINUSER,
   GENERALUSER,
+  OTPPARAM,
 };

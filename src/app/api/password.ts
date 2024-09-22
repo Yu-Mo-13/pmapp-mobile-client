@@ -22,4 +22,11 @@ const registPassword = async (
   const data = await res.json();
   return data;
 }
-export { getPassword, registPassword };
+
+const generatePassword = async (markclas: string, length: string) => {
+  const res = await fetch(`${API_ROOT}/password/generate/markclas=${markclas}&length=${length}`);
+  const data = await res.json();
+  return data;
+}
+
+export { getPassword, registPassword, generatePassword };

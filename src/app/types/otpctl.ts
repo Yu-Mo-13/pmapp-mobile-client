@@ -6,3 +6,8 @@ export type Otpctl = {
   created_at: string;
   updated_at: string;
 }
+
+export type Otp = {
+  genOtp: string;
+  sendOtp: string;
+}

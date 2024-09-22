@@ -2,27 +2,18 @@
 import React from "react";
 import styles from "@/app/page.module.css";
 import * as CSS from 'csstype';
-import { useRouter } from "next/navigation";
-import { getOtpctl } from '@/app/api/otpctl';
+import { signIn } from "next-auth/react";
 import { AppTitle } from '@/app/components/apptitle';
 import { LargeButton } from "@/app/components/button/large";
-import { Otpctl } from "@/app/types/otpctl";
-import { sendSms } from "@/app/utillities/aws";
 
 export default function AdminHome() {
-  const router = useRouter();
   const loginStyle: CSS.Properties = {
     marginTop: "9rem",
   }
 
   const onClickLogin = async () => {
     try {
-      // SMS送信
-      // CD=01のOTP制御情報を取得
-      const otpctlInfo: Otpctl = await getOtpctl("01");
-      // SMS送信
-      sendSms(otpctlInfo.value, "管理者ログインがありました。");
-      router.push("/admin");
+      signIn("google", { callbackUrl: "/admin/auth" }, { prompt: "login"});
     } catch (error) {
       alert("ログインに失敗しました。");
       return
