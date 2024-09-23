@@ -17,10 +17,8 @@ import {
   setSendOtp,
   resetOtp,
 } from "@/app/proxy/admin";
-import { Otpctl } from "@/app/types/otpctl";
-import { sendSms } from "@/app/utillities/aws";
 import { OTPPARAM } from "@/app/utillities/const";
-import { checkAllowUser } from "@/app/utillities/function";
+import { checkAdminUser } from "@/app/utillities/function";
 
 export default function AdminAuth() {
   const router = useRouter();
@@ -46,26 +44,27 @@ export default function AdminAuth() {
     }
     // クライアント側にワンタイムパスワード情報を残さないようにする
     resetOtp();
-    router.push("/menu");
+    router.push("/admin/menu");
   }
 
-  // ワンタイムパスワードを取得
-  const getOtp = async () => {
+  const getOtpandSendtoSlack = async () => {
+    // ワンタイムパスワードを取得
     const otpLength = await getOtpctl(OTPPARAM.otpctlcdOtplength);
     const getOtp = await generatePassword(OTPPARAM.markclas, otpLength.value);
     setGenOtp(getOtp);
+    // Slack送信
+    await fetch('/api/slack', {
+      method: 'POST',
+      mode: 'same-origin',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json; charset=utf-8' },
+      body : JSON.stringify({message: `[PMAPP Mobile]\nワンタイムパスワードは${atob(getOtp)}です。`}),
+    });
   }
 
   useState(async () => {
     try {
-      // useStateで何度もワンタイムパスワードを生成しないようにする
-      // if (otpStore.genOtp !== "") return;
-      await getOtp();
-      // SMS送信
-      // CD=01のOTP制御情報を取得
-      const otpctlInfo: Otpctl = await getOtpctl(OTPPARAM.otpctlcdPhonenumber);
-      // SMS送信
-      await sendSms(otpctlInfo.value, `[PMAPP Mobile]\nワンタイムパスワードは${atob(store.genOtp)}です。`);
+      await getOtpandSendtoSlack();
     } catch (error) {
       alert(`パスワードの送信に失敗しました: ${error}`);
       return
@@ -88,7 +87,7 @@ export default function AdminAuth() {
         />
         <LargeButton
           caption="ログイン"
-          isEnabled={checkAllowUser(session?.user?.name!)}
+          isEnabled={checkAdminUser(session?.user?.name!)}
           onClick={onClickLogin}
         />
       </div>

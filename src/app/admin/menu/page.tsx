@@ -7,8 +7,8 @@ import * as CSS from "csstype";
 import { AppTitle } from "@/app/components/apptitle";
 import { LoginUser } from "@/app/components/loginuser";
 import { Plate } from "@/app/components/plate";
-import { FUNCLIST } from "@/app/utillities/const";
-import { checkGeneralUser } from "@/app/utillities/function";
+import { ADMINFUNCLIST } from "@/app/utillities/const";
+import { checkAdminUser } from "@/app/utillities/function";
 
 export default function Menu() {
   const router = useRouter();
@@ -21,23 +21,25 @@ export default function Menu() {
     height: "100%",
   };
   const onClickLogout = () => {
-    signOut({ callbackUrl: "/" });
+    signOut({ callbackUrl: "/admin" });
   }
   const onClickPlate = (funcname: string) => {
-    if (!checkGeneralUser(session?.user?.name!)) {
+    if (!checkAdminUser(session?.user?.name!)) {
       alert("アクセス権限がありません。");
       return;
     }
     switch (funcname) {
-      case FUNCLIST[0]:
+      case ADMINFUNCLIST[0]:
         router.push("/account");
         break;
-      case FUNCLIST[1]:
+      case ADMINFUNCLIST[1]:
         router.push("/password");
         break;
-      case FUNCLIST[2]:
+      case ADMINFUNCLIST[2]:
         router.push("/autoregist");
         break;
+      case ADMINFUNCLIST[3]:
+        router.push("/admin/setting")
       default:
         alert("Coming soon...");
         break;
@@ -50,7 +52,7 @@ export default function Menu() {
         <LoginUser caption={session?.user?.name!} />
         <AppTitle caption="メニュー"/>
         <div className="funcList" style={menuStyle}>
-          {FUNCLIST.map((funcname) => (
+          {ADMINFUNCLIST.map((funcname) => (
             <Plate key={funcname} caption={funcname} isEnabled={true} onClick={() => onClickPlate(funcname)}/>
           ))}
         </div>

@@ -4,8 +4,12 @@ const convertCaption = (account: string) => {
   return account.length > 10 ? account.slice(0, 20) + "..." : account;
 };
 
-const checkAllowUser = (user: string) => {
-  return user === ADMINUSER || user === GENERALUSER;
+const checkAdminUser = (user: string) => {
+  return user === ADMINUSER;
+}
+
+const checkGeneralUser = (user: string) => {
+  return user === GENERALUSER;
 }
 
 const getRegistButtonState = (id: string, username: string) => {
@@ -24,4 +28,4 @@ const getRegistButtonState = (id: string, username: string) => {
   return state;
 }
 
-export { convertCaption, checkAllowUser, getRegistButtonState };
+export { convertCaption, checkAdminUser, checkGeneralUser, getRegistButtonState };
