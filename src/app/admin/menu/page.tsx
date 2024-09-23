@@ -40,6 +40,7 @@ export default function Menu() {
         break;
       case ADMINFUNCLIST[3]:
         router.push("/admin/setting")
+        break;
       default:
         alert("Coming soon...");
         break;
