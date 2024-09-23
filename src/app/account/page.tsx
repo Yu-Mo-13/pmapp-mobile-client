@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import styles from '@/app/page.module.css';
 import * as CSS from "csstype";
 import { getApplicationList } from "@/app/api/application";
 import { getAccountList } from "@/app/api/account";
@@ -14,8 +15,7 @@ import { LoginUser } from "@/app/components/loginuser";
 import { setAccountStore } from "@/app/proxy/account";
 import { Account } from "@/app/types/account";
 import { ADDACCOUNTPARAM, ADMINUSER } from "@/app/utillities/const";
-import { convertCaption } from "@/app/utillities/function";
-import styles from '@/app/page.module.css';
+import { convertCaption, getMenuRoute } from "@/app/utillities/function";
 
 export default function AccountList() {
   const router = useRouter();
@@ -78,7 +78,7 @@ export default function AccountList() {
           <LargeButton
             caption="戻る"
             isEnabled={canSelect}
-            onClick={() => router.push("/menu")}
+            onClick={() => router.push(getMenuRoute(session?.user?.name!))}
           />
           <LargeButton
             caption="新規作成"

@@ -28,4 +28,8 @@ const getRegistButtonState = (id: string, username: string) => {
   return state;
 }
 
-export { convertCaption, checkAdminUser, checkGeneralUser, getRegistButtonState };
+const getMenuRoute = (user: string) => {
+  return user === ADMINUSER ? "/admin/menu" : "/menu";
+}
+
+export { convertCaption, checkAdminUser, checkGeneralUser, getRegistButtonState, getMenuRoute };

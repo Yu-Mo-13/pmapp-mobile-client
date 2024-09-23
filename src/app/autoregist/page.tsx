@@ -9,8 +9,8 @@ import { AppTitle } from '@/app/components/apptitle';
 import { LargeButton } from '@/app/components/button/large';
 import { LoginUser } from '@/app/components/loginuser';
 import { Plate } from '@/app/components/plate';
-import { convertCaption } from '@/app/utillities/function';
 import { Autoregist } from '@/app/types/password';
+import { convertCaption, getMenuRoute } from '@/app/utillities/function';
 
 export default function AutoRegistList() {
   const router = useRouter();
@@ -56,7 +56,7 @@ export default function AutoRegistList() {
           <LargeButton
             caption="戻る"
             isEnabled={true}
-            onClick={() => router.push("/menu")}
+            onClick={() => router.push(getMenuRoute(session?.user?.name!))}
           />
         </div>
         {autoregistInfo.length === 0 ? (

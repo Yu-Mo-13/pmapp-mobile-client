@@ -20,7 +20,7 @@ import { Plate } from "@/app/components/plate";
 import { resetPasswordStore } from "@/app/proxy/password";
 import { AccountandPassword } from "@/app/types/account";
 import { ACCOUNTCLASS, NEWID } from "@/app/utillities/const";
-import { convertCaption } from "@/app/utillities/function";
+import { convertCaption, getMenuRoute } from "@/app/utillities/function";
 
 export default function Password() {
   const [passwordInfo, setPasswordInfo] = useState<AccountandPassword[]>([]);
@@ -89,7 +89,7 @@ export default function Password() {
 
   const onClickBackButton = () => {
     resetPasswordStore();
-    router.push("/menu");
+    router.push(getMenuRoute(session?.user?.name!));
   };
 
   const onClickGetPasswordButton = async (p: string) => {
