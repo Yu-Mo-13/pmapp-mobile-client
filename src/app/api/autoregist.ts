@@ -31,6 +31,14 @@ const getAutoregistInfo = async (uuid: string) => {
   return autoregistInfo;
 };
 
+const createAutoregistInfo = async (pwd: string, app: string, other_info: string) => {
+  const res = await fetch(`${API_ROOT}/autoregist/create?pwd=${pwd}&app=${app}&other_info=${other_info}`, {
+    method: "POST",
+  });
+  const data = await res.json();
+  return data;
+}
+
 const deleteAutoregistInfo = async (uuid: string) => {
   const res = await fetch(`${API_ROOT}/autoregist/delete/${uuid}`, {
     method: "POST",
@@ -39,4 +47,4 @@ const deleteAutoregistInfo = async (uuid: string) => {
   return data;
 }
 
-export { getAllAutoregistList, getAutoregistInfo, deleteAutoregistInfo };
+export { getAllAutoregistList, getAutoregistInfo, createAutoregistInfo , deleteAutoregistInfo };

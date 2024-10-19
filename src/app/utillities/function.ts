@@ -32,4 +32,8 @@ const getMenuRoute = (user: string) => {
   return user === ADMINUSER ? "/admin/menu" : "/menu";
 }
 
-export { convertCaption, checkAdminUser, checkGeneralUser, getRegistButtonState, getMenuRoute };
+const decodeUrl = (param: string) => {
+  return decodeURIComponent(param);
+}
+
+export { convertCaption, checkAdminUser, checkGeneralUser, getRegistButtonState, getMenuRoute, decodeUrl };

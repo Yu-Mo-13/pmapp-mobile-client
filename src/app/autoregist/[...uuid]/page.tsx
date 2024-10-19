@@ -83,7 +83,7 @@ export default function AutoRegistDetail({ params }: { params: { uuid: UUID }}) 
     <main className={styles.main}>
       <div className={styles.content}>
         <LoginUser caption={session?.user?.name!} />
-        <AppTitle caption="パスワード自動登録リスト" />
+        <AppTitle caption="仮登録済パスワード詳細" />
         <div className="header" style={headerStyle}>
           <SmallButton
             caption="戻る"

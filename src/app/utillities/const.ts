@@ -7,8 +7,8 @@ const ACCOUNTCLASS = {
   NeedAccount: "1",
 };
 
-const FUNCLIST: string[] = ["アカウントマスター", "パスワード検索", "自動登録済リスト"];
-const ADMINFUNCLIST: string[] = ["アカウントマスター", "パスワード検索", "自動登録済リスト", "各種設定"];
+const FUNCLIST: string[] = ["アカウントマスター", "パスワード検索", "仮登録済リスト"];
+const ADMINFUNCLIST: string[] = ["アカウントマスター", "パスワード検索", "仮登録済リスト", "各種設定"];
 
 // 新規登録画面遷移時に渡すパラメータ
 const NEWID: number = 0;
@@ -32,6 +32,9 @@ const OTPPARAM: {
   otpctlcdOtplength: "02",
 }
 
+// パスワード仮登録時の管理者パスワード
+const AUTOREGISTPASSWORD: string = process.env.NEXT_PUBLIC_AUTOREGIST_PASSWORD!;
+
 export {
   API_ROOT,
   ACCOUNTCLASS,
@@ -42,4 +45,5 @@ export {
   ADMINUSER,
   GENERALUSER,
   OTPPARAM,
+  AUTOREGISTPASSWORD,
 };

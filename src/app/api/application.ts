@@ -28,6 +28,12 @@ const getAccountClas = async (app: string) => {
   return data.accountclas;
 };
 
+const getMarkclasAndAutosize = async (app: string) => {
+  const res = await fetch(`${API_ROOT}/application/app=${app}`);
+  const data = await res.json();
+  return { markclas: data.markclas, autosize: data.autosize };
+}
+
 const getAccountList = async (app: string, accountClas: string) => {
   if (accountClas !== ACCOUNTCLASS.NeedAccount) return new Array(0);
   const res = await fetch(`${API_ROOT}/account/app=${app}`);
@@ -44,5 +50,6 @@ export {
   getAllApplicationList,
   getApplicationList,
   getAccountClas,
+  getMarkclasAndAutosize,
   getAccountList,
 };

@@ -25,7 +25,7 @@ export default function AutoRegistList() {
     try {
       fetchAutoregistList();
     } catch (error: unknown) {
-      alert(`自動登録リストの取得に失敗しました: ${error}`);
+      alert(`仮登録済リストの取得に失敗しました: ${error}`);
     }
   });
 
@@ -51,7 +51,7 @@ export default function AutoRegistList() {
     <main className={styles.main}>
       <div className={styles.content}>
         <LoginUser caption={session?.user?.name!} />
-        <AppTitle caption="パスワード自動登録リスト" />
+        <AppTitle caption="仮登録済パスワードリスト" />
         <div className="header" style={headerStyle}>
           <LargeButton
             caption="戻る"
@@ -60,7 +60,7 @@ export default function AutoRegistList() {
           />
         </div>
         {autoregistInfo.length === 0 ? (
-            <AppTitle caption="自動登録されたパスワードはありません。" />
+            <AppTitle caption="仮登録済のパスワードはありません。" />
         ) : null}
         <div className="accountList" style={accountListStyle}>
           {autoregistInfo.map((rec, i) => (
