@@ -36,8 +36,12 @@ export default function AutoRegistDetail({ params }: { params: { app: string }})
       // パスワードを生成
       const password = await generatePassword(markclasAndAutosize.markclas, markclasAndAutosize.autosize);
       await createAutoregistInfo(password, params.app, "");
-      alert("パスワードの仮登録が完了しました。再度パスワードをコピーする場合は、パスワード仮登録済リスト画面から取得してください。");
-      router.push("/");
+      alert("パスワードの仮登録が完了しました。");
+      // パスワードをクリップボードにコピー
+      navigator.clipboard.writeText(atob(password)).then(() => {
+        alert("パスワードをクリップボードにコピーしました。再度パスワードをコピーする場合は、パスワード仮登録済リスト画面から取得してください。");
+        router.push("/");
+      });
     } catch (error) {
       alert(`パスワードの仮登録に失敗しました。Error:${error}`);
     }
