@@ -1,8 +1,15 @@
 {
+  "redirects": [
+    {
+      "source": "/auth/callback/google",
+      "destination": "/api/auth/callback/google",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
-      "source": "/api/:path*",
-      "destination": "https://pmapp-mobile-client.vercel.app/:path*"
+      "source": "/auth/:slug*",
+      "destination": "/api/auth/:slug*"
     }
   ]
 }
