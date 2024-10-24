@@ -63,7 +63,7 @@ export default function AccountDetail({ params }: { params: { id: string }}) {
         return;
       }
       // 登録・削除処理
-      params.id === ADDACCOUNTPARAM.Id
+      params.id[0] === ADDACCOUNTPARAM.Id
         ? await createAccount(accountInfo)
         : await deleteAccount(accountInfo);
       resetAccountStore();
