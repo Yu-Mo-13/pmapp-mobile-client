@@ -41,11 +41,5 @@
     "eslint-config-next": "14.2.7",
     "jest-environment-jsdom": "^29.7.0",
     "typescript": "^5"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}",
-      "!src/**/*.d.ts"
-    ]
   }
 }
