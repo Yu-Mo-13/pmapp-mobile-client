@@ -9,7 +9,7 @@
     "lint": "next lint",
     "lint:precommit": "eslint 'src/**/*.{ts,tsx}' --max-warnings 0",
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -41,5 +41,11 @@
     "eslint-config-next": "14.2.7",
     "jest-environment-jsdom": "^29.7.0",
     "typescript": "^5"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.d.ts"
+    ]
   }
 }
