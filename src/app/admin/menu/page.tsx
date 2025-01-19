@@ -1,18 +1,22 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import styles from "@/app/page.module.css";
 import * as CSS from "csstype";
+import { getMenu } from "@/app/api/menu";
 import { AppTitle } from "@/app/components/apptitle";
 import { LoginUser } from "@/app/components/loginuser";
 import { Plate } from "@/app/components/plate";
-import { ADMINFUNCLIST } from "@/app/utillities/const";
+import { Spinner } from "@/app/components/spinner";
 import { checkAdminUser } from "@/app/utillities/function";
+import { type Menu } from "@/app/types/menu";
 
 export default function Menu() {
   const router = useRouter();
   const { data: session } = useSession();
+  const [menu, setMenu] = useState<Menu[]>([]);
+  const [loading, setLoading] = useState(true);
   const menuStyle: CSS.Properties = {
     display: "flex",
     flexDirection: "column",
@@ -20,31 +24,23 @@ export default function Menu() {
     alignItems: "center",
     height: "100%",
   };
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      const list = await getMenu(true);
+      setMenu(list);
+      setLoading(false);
+    };
+    try {
+      fetchMenu();
+    } catch (error: unknown) {
+      alert(`メニューの取得に失敗しました: ${error}`);
+      setLoading(false);
+    }
+  }, []);
+
   const onClickLogout = () => {
     signOut({ callbackUrl: "/admin" });
-  }
-  const onClickPlate = (funcname: string) => {
-    if (!checkAdminUser(session?.user?.name!)) {
-      alert("アクセス権限がありません。");
-      return;
-    }
-    switch (funcname) {
-      case ADMINFUNCLIST[0]:
-        router.push("/account");
-        break;
-      case ADMINFUNCLIST[1]:
-        router.push("/password");
-        break;
-      case ADMINFUNCLIST[2]:
-        router.push("/autoregist");
-        break;
-      case ADMINFUNCLIST[3]:
-        router.push("/admin/setting")
-        break;
-      default:
-        alert("Coming soon...");
-        break;
-    }
   }
 
   return (
@@ -52,12 +48,21 @@ export default function Menu() {
       <div className={styles.content}>
         <LoginUser caption={session?.user?.name!} />
         <AppTitle caption="メニュー"/>
-        <div className="funcList" style={menuStyle}>
-          {ADMINFUNCLIST.map((funcname) => (
-            <Plate key={funcname} caption={funcname} isEnabled={true} onClick={() => onClickPlate(funcname)}/>
-          ))}
-        </div>
-        <Plate caption="ログアウト" isEnabled={true} onClick={onClickLogout} />
+        {loading ? (
+          <Spinner />
+        ) : (
+          <div className="menu" style={menuStyle}>
+            {menu.map((m) => (
+              <Plate
+                key={m.id}
+                caption={m.name}
+                isEnabled={checkAdminUser(session?.user?.name!)}
+                onClick={() => router.push(m.url)}
+              />
+            ))}
+          </div>
+        )}
+        <Plate caption="ログアウト" isEnabled={!loading} onClick={onClickLogout} />
       </div>
     </main>
   );
