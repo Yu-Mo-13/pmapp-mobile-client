@@ -1,18 +1,20 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import styles from "@/app/page.module.css";
 import * as CSS from "csstype";
+import { getMenu } from "@/app/api/menu";
 import { AppTitle } from "@/app/components/apptitle";
 import { LoginUser } from "@/app/components/loginuser";
 import { Plate } from "@/app/components/plate";
-import { FUNCLIST } from "@/app/utillities/const";
 import { checkGeneralUser } from "@/app/utillities/function";
+import { type Menu } from "@/app/types/menu";
 
 export default function Menu() {
   const router = useRouter();
   const { data: session } = useSession();
+  const [menu, setMenu] = useState<Menu[]>([]);
   const menuStyle: CSS.Properties = {
     display: "flex",
     flexDirection: "column",
@@ -20,28 +22,21 @@ export default function Menu() {
     alignItems: "center",
     height: "100%",
   };
+
+  useEffect(() => {
+    const fetchMenu = async () => {
+      const list = await getMenu();
+      setMenu(list);
+    };
+    try {
+      fetchMenu();
+    } catch (error: unknown) {
+      alert(`メニューの取得に失敗しました: ${error}`);
+    }
+  });
+
   const onClickLogout = () => {
     signOut({ callbackUrl: "/" });
-  }
-  const onClickPlate = (funcname: string) => {
-    if (!checkGeneralUser(session?.user?.name!)) {
-      alert("アクセス権限がありません。");
-      return;
-    }
-    switch (funcname) {
-      case FUNCLIST[0]:
-        router.push("/account");
-        break;
-      case FUNCLIST[1]:
-        router.push("/password");
-        break;
-      case FUNCLIST[2]:
-        router.push("/autoregist");
-        break;
-      default:
-        alert("Coming soon...");
-        break;
-    }
   }
 
   return (
@@ -49,9 +44,14 @@ export default function Menu() {
       <div className={styles.content}>
         <LoginUser caption={session?.user?.name!} />
         <AppTitle caption="メニュー"/>
-        <div className="funcList" style={menuStyle}>
-          {FUNCLIST.map((funcname) => (
-            <Plate key={funcname} caption={funcname} isEnabled={true} onClick={() => onClickPlate(funcname)}/>
+        <div className="menu" style={menuStyle}>
+          {menu.map((m) => (
+            <Plate
+              key={m.id}
+              caption={m.name}
+              isEnabled={checkGeneralUser(session?.user?.name!)}
+              onClick={() => router.push(m.url)}
+            />
           ))}
         </div>
         <Plate caption="ログアウト" isEnabled={true} onClick={onClickLogout} />
