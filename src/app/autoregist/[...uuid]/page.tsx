@@ -13,7 +13,7 @@ import { LoginUser } from '@/app/components/loginuser';
 import { ReadonlyTextbox } from "@/app/components/textbox/readonly";
 import { Autoregist, UUID } from '@/app/types/password';
 import { NEWID } from '@/app/utillities/const';
-import { getRegistButtonState } from '@/app/utillities/function';
+import { isValidUser } from '@/app/utillities/function';
 
 export default function AutoRegistDetail({ params }: { params: { uuid: UUID }}) {
   const router = useRouter();
@@ -32,7 +32,7 @@ export default function AutoRegistDetail({ params }: { params: { uuid: UUID }}) 
     justifyContent: "space-between",
   };
 
-  const registButtonState = getRegistButtonState(params.uuid[0], session?.user?.name!);
+  const registButtonState = isValidUser(session?.user?.name!);
 
   const fetchAutoRegistInfo = async () => {
     const autoregistDetailInfo: Autoregist = await getAutoregistInfo(params.uuid[0]);
@@ -97,7 +97,7 @@ export default function AutoRegistDetail({ params }: { params: { uuid: UUID }}) 
           />
           <SmallButton
             caption="本登録"
-            isEnabled={registButtonState.isEnabled}
+            isEnabled={registButtonState}
             onClick={() => onClickRegistButton()}
           />
         </div>

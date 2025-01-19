@@ -12,6 +12,10 @@ const checkGeneralUser = (user: string) => {
   return user === GENERALUSER;
 }
 
+const isValidUser = (user: string) => {
+  return checkAdminUser(user) || checkGeneralUser(user)
+}
+
 const getRegistButtonState = (id: string, username: string) => {
   const state = {
     isEnabled: false,
@@ -36,4 +40,4 @@ const decodeUrl = (param: string) => {
   return decodeURIComponent(param);
 }
 
-export { convertCaption, checkAdminUser, checkGeneralUser, getRegistButtonState, getMenuRoute, decodeUrl };
+export { convertCaption, checkAdminUser, checkGeneralUser, isValidUser, getRegistButtonState, getMenuRoute, decodeUrl };
