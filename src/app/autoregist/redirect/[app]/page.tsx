@@ -53,7 +53,7 @@ export default function AutoRegistDetail({ params }: { params: { app: string }})
         <AppTitle caption="パスワード仮登録画面" />
         <div className={styles.detail}>
           <Caption caption="アプリ名" />
-          <ReadonlyTextbox type="text" id="app" placeholder="" val={params.app} onChange={
+          <ReadonlyTextbox type="text" id="app" placeholder="" val={decodeURIComponent(params.app)} onChange={
             // 何も処理しない
             () => {}
           } />

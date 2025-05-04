@@ -10,7 +10,7 @@ import { LargeButton } from '@/app/components/button/large';
 import { LoginUser } from '@/app/components/loginuser';
 import { Plate } from '@/app/components/plate';
 import { Autoregist } from '@/app/types/password';
-import { convertCaption, getMenuRoute } from '@/app/utillities/function';
+import { getMenuRoute } from '@/app/utillities/function';
 
 export default function AutoRegistList() {
   const router = useRouter();
@@ -47,6 +47,14 @@ export default function AutoRegistList() {
     router.push(`/autoregist/uuid=${uuid}`);
   };
 
+  const convertCaption = (autoRegist: Autoregist) => {
+    if (autoRegist.other_info === "") {
+      return autoRegist.app;
+    } else {
+      return `${autoRegist.app}/${autoRegist.other_info}`;
+    }
+  }
+
   return (
     <main className={styles.main}>
       <div className={styles.content}>
@@ -66,7 +74,7 @@ export default function AutoRegistList() {
           {autoregistInfo.map((rec, i) => (
             <Plate
               key={i}
-              caption={rec.other_info === "" ? rec.app : convertCaption(`${rec.app}/${rec.other_info}`)}
+              caption={convertCaption(rec)}
               isEnabled={true}
               onClick={() => moveToDetail(rec.uuid)}
             />
