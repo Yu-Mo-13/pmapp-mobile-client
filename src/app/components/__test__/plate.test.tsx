@@ -14,19 +14,19 @@ describe("Plateコンポーネント", () => {
     });
 
     test("正しくレンダリングされること", () => {
-        render(Plate(baseProps, { key: "" }));
+        render(<Plate {...baseProps} />);
         const buttonElement = screen.getByText(baseProps.caption);
         expect(buttonElement).toBeInTheDocument();
     });
 
     test("キャプションが正しく表示されること", () => {
-        render(Plate(baseProps, { key: "" }));
+        render(<Plate {...baseProps} />);
         const buttonElement = screen.getByText(baseProps.caption);
         expect(buttonElement).toHaveTextContent("テストプレート");
     });
 
     test("有効時の正しいスタイルが適用されていること", () => {
-        render(Plate(baseProps, { key: "" }));
+        render(<Plate {...baseProps} />);
         const buttonElement = screen.getByText(baseProps.caption);
         
         expect(buttonElement).toHaveStyle({
@@ -44,7 +44,7 @@ describe("Plateコンポーネント", () => {
 
     test("無効時の正しいスタイルが適用されていること", () => {
         const mockProps = { ...baseProps, isEnabled: false };
-        render(Plate(mockProps, { key: "" }));
+        render(<Plate {...mockProps} />);
         const buttonElement = screen.getByText(baseProps.caption);
         
         expect(buttonElement).toHaveStyle({
@@ -55,7 +55,7 @@ describe("Plateコンポーネント", () => {
     test("有効時にクリックするとonClickハンドラーが呼び出されること", () => {
         const mockOnClick = jest.fn();
         const mockProps = { ...baseProps, onClick: mockOnClick };
-        render(Plate(mockProps, { key: "" }));
+        render(<Plate {...mockProps} />);
         const buttonElement = screen.getByText(baseProps.caption);
         fireEvent.click(buttonElement);
         expect(mockOnClick).toHaveBeenCalledTimes(1);
@@ -64,14 +64,14 @@ describe("Plateコンポーネント", () => {
     test("無効時にクリックしてもonClickハンドラーが呼び出されないこと", () => {
         const mockOnClick = jest.fn();
         const mockProps = { ...baseProps, isEnabled: false, onClick: mockOnClick };
-        render(Plate(mockProps, { key: "" }));
+        render(<Plate {...mockProps} />);
         const buttonElement = screen.getByText(baseProps.caption);
         fireEvent.click(buttonElement);
         expect(mockOnClick).not.toHaveBeenCalled();
     });
 
     test("button要素として描画されていること", () => {
-        render(Plate(baseProps, { key: "" }));
+        render(<Plate {...baseProps} />);
         const buttonElement = screen.getByText(baseProps.caption);
         expect(buttonElement.tagName).toBe("BUTTON");
     });

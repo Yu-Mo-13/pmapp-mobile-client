@@ -1,9 +1,8 @@
 import * as CSS from "csstype";
 import { ButtonProps } from "@/app/types/button";
 
-export const Plate = (props: ButtonProps, exProps: { key: string }) => {
+export const Plate = (props: ButtonProps) => {
   const { caption, isEnabled, onClick } = props;
-  const { key } = exProps;
 
   const plateStyle: CSS.Properties = {
     width: "18rem",
@@ -19,7 +18,6 @@ export const Plate = (props: ButtonProps, exProps: { key: string }) => {
 
   return (
     <button
-      key={key}
       style={plateStyle}
       disabled={!isEnabled}
       onClick={onClick}
